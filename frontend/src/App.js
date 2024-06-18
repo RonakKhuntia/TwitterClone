@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={true?<HomePage/>:<Authentication/>}>        
+        <Route path="/*" element={true?<HomePage/>:<Authentication/>}>        
         </Route>
       </Routes>
     </div>
