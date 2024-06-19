@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Box, Button, Tab} from '@mui/material';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
@@ -12,11 +11,11 @@ import ProfileModal from './ProfileModal';
 const Profile = () => {
 
     const [tabValue,setTabValue] = useState("1")
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
+    const [openProfileModal, setOpenProfileModal] = useState(false);
+    const handleOpenProfileModal = () => setOpenProfileModal(true);
+    const handleClose = () => setOpenProfileModal(false);
     const handleBack = () => navigate(-1);
-    const handleOpenProfileModel = () => {
-        console.log("open profile model")
-    }
     const handleFollowUser = () => {
         console.log("follow user")
     }
@@ -47,7 +46,7 @@ const Profile = () => {
                         sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
                     />
 
-                    {true ? <Button onClick={handleOpenProfileModel}
+                    {true ? <Button onClick={handleOpenProfileModal}
                         className='rounded-full' variant='content' sx={{ borderRadius: "20px" }}>Edit Profile</Button> :
                         <Button onClick={handleFollowUser}
                             className='rounded-full' variant='content' sx={{ borderRadius: "20px" }}>{true ? "Follow" : "UnFollow"}</Button>}
@@ -98,7 +97,7 @@ const Profile = () => {
                 </TabContext>
             </section>
             <section>
-                <ProfileModal />
+                <ProfileModal handleClose={handleClose} open={openProfileModal} />
             </section>
         </div>
     )

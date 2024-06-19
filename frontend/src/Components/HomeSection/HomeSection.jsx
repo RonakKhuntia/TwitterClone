@@ -24,7 +24,8 @@ const HomeSection = () => {
     const formik = useFormik({
         initialValues:{
             content:"",
-            image:""
+            image:"",
+            tweetId:4
         },
         onSubmit:handleSubmit,
         validationSchema,
