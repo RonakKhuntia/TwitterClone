@@ -23,7 +23,7 @@ public class LikeServiceImplementation implements LikeService{
     private TweetRepository tweetRepository;
 
     @Override
-    public Like LikeTweet(Long tweetId, User user) throws UserException, TweetException {
+    public Like likeTweet(Long tweetId, User user) throws UserException, TweetException {
         Like isLikeExists = likeRepository.isLikeExists(user.getId(),tweetId);
         if(isLikeExists != null){
             likeRepository.deleteById(isLikeExists.getId());
