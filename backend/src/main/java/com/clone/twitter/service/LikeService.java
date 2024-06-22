@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface LikeService {
 
-    public Like LikeTweet(Long tweetId, User user) throws UserException, TweetException;
+    public Like likeTweet(Long tweetId, User user) throws UserException, TweetException;
     public List<Like> getAllLikes(Long tweetId) throws TweetException;
 
 }
