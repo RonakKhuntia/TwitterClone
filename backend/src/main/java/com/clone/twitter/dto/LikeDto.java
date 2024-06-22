@@ -7,6 +7,6 @@ public class LikeDto {
 
     private Long id;
     private UserDto user;
-    private TweetDto twit;
+    private TweetDto tweet;
 
 }
