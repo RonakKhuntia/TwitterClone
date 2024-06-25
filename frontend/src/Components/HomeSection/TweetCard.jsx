@@ -10,7 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FavoriteOutlined } from '@mui/icons-material';
 import ReplyModal from './ReplyModal';
 
-const TweetCard = () => {
+const TweetCard = ({item}) => {
 
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -49,7 +49,7 @@ const TweetCard = () => {
                     onClick={() => navigate(`/profile/${6}`)}
                     className='cursor-pointer'
                     alt='username'
-                    src='https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png' />
+                    src={'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png'} />
 
                 <div className='w-full'>
                     <div className='flex justify-between items-center'>
@@ -85,8 +85,8 @@ const TweetCard = () => {
 
                     <div className='mt-2'>
                         <div onClick={() => navigate(`/tweet/${3}`)} className='cursor-pointer' >
-                            <p className='mb-2 p-0'>Nice tweet</p>
-                            <img className='w-[28rem] border-gray-400 p-5 rounded-md' src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png" alt="" />
+                            <p className='mb-2 p-0'>{item.content}</p>
+                            <img className='w-[28rem] border-gray-400 p-5 rounded-md' src={item.image} alt="" />
                         </div>
 
                         <div className='py-5 flex flex-wrap justify-between items-center'>
