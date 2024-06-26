@@ -9,6 +9,8 @@ import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import * as Yup from 'yup'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { createTweetReply } from '../../Store/Tweet/Action';
 
 const style = {
     position: 'absolute',
@@ -28,13 +30,15 @@ const validationSchema = Yup.object().shape({
     content: Yup.string().required("Tweet text is required")
 })
 
-export default function ReplyModal({handleClose, open}) {
+export default function ReplyModal({handleClose, open, item}) {
 
     const [uploadingImage, setUploadingImage] = useState(false);
     const [selectedImage, setSelectedImage] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const handleSubmit = (values) => {
+    const handleSubmit = (values) => {  
+        dispatch(createTweetReply(values))
         console.log("values", values)
     }
 
@@ -42,7 +46,8 @@ export default function ReplyModal({handleClose, open}) {
         initialValues: {
             content: "",
             image: "",
-            video: ""
+            video: "",
+            tweetId: item.id
         },
         validationSchema,
         onSubmit: handleSubmit,

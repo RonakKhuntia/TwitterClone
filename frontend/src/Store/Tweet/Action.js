@@ -71,7 +71,7 @@ export const createTweetReply = (tweetData) => async(dispatch) => {
 
 export const createRetweet = (tweetId) => async(dispatch) => {
     try{
-        const {data} = await api.post(`/api/tweets/${tweetId}/retweet`)
+        const {data} = await api.put(`/api/tweets/${tweetId}/retweet`)
         console.log("retweet tweet: ", data)
         dispatch({type:RETWEET_SUCCESS,payload:data})
     }catch(error){
@@ -82,7 +82,7 @@ export const createRetweet = (tweetId) => async(dispatch) => {
 
 export const likeTweet = (tweetId) => async(dispatch) => {
     try{
-        const {data} = await api.post(`/api/${tweetId}/like`)
+        const {data} = await api.post(`/api/${tweetId}/likes`)
         console.log("like tweet: ", data)
         dispatch({type:LIKE_TWEET_SUCCESS,payload:data})
     }catch(error){

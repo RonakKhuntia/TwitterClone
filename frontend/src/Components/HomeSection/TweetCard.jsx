@@ -9,6 +9,8 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FavoriteOutlined } from '@mui/icons-material';
 import ReplyModal from './ReplyModal';
+import { useDispatch } from 'react-redux';
+import { createRetweet, likeTweet } from '../../Store/Tweet/Action';
 
 const TweetCard = ({item}) => {
 
@@ -18,6 +20,7 @@ const TweetCard = ({item}) => {
     const [openReplyModal, setOpenReplyModal] = useState(false);
     const handleOpenReplyModal = () => setOpenReplyModal(true);
     const handleCloseReplyModal = () => setOpenReplyModal(false);
+    const dispatch = useDispatch()
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -31,10 +34,12 @@ const TweetCard = ({item}) => {
     }
 
     const handleCreateRetweet = () => {
+        dispatch(createRetweet(item.id))
         console.log("handle create retweet")
     }
 
     const handleLikeTweet = () => {
+        dispatch(likeTweet(item.id))
         console.log("handle like retweet")
     }
 
@@ -54,8 +59,8 @@ const TweetCard = ({item}) => {
                 <div className='w-full'>
                     <div className='flex justify-between items-center'>
                         <div className='flex cursor-pointer items-center space-x-2'>
-                            <span className='font-semibold'>Rounak Kumar</span>
-                            <span className='text-gray-600'>@Rounak . 2m</span>
+                            <span className='font-semibold'>{item.user.fullName}</span>
+                            <span className='text-gray-600'>{item.user.fullName.split(" ").join("_").toLowerCase()} </span>
                             <img className='ml-2 w-5 h-5' src="https://abs.twimg.com/responsive-web/client-web/verification-card-v2@3x.8ebee01a.png" alt="" />
                         </div>
                         <div>
@@ -93,15 +98,15 @@ const TweetCard = ({item}) => {
                             <div className='space-x-3 flex items-center text-gray'>
                                 <ChatBubbleOutlineIcon className='cursor-pointer' onClick={handleOpenReplyModal} />
                             </div>
-                            <p>43</p>
+                            <p>{item.totalReplies}</p>
 
-                            <div className={`${true ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
+                            <div className={`${item.retweet ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
                                 <RepeatIcon onClick={handleCreateRetweet} className='cursor-pointer' />
-                                <p>54</p>
+                                <p>{item.totalRetweets}</p>
                             </div>
-                            <div className={`${true ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
-                                {true ? <FavoriteIcon onClick={handleLikeTweet} className='cursor-pointer' /> : <FavoriteOutlined onClick={handleLikeTweet} className='cursor-pointer' />}
-                                <p>54</p>
+                            <div className={`${item.liked ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
+                                {!item.liked ? <FavoriteIcon onClick={handleLikeTweet} className='cursor-pointer' /> : <FavoriteOutlined onClick={handleLikeTweet} className='cursor-pointer' />}
+                                <p>{item.totalLikes}</p>
                             </div>
 
 
@@ -119,7 +124,7 @@ const TweetCard = ({item}) => {
                 </div>
             </div>
             <section>
-                <ReplyModal open={openReplyModal} handleClose={handleCloseReplyModal} />
+                <ReplyModal item={item} open={openReplyModal} handleClose={handleCloseReplyModal} />
             </section>
         </React.Fragment>
     )

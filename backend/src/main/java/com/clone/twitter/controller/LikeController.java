@@ -24,7 +24,7 @@ public class LikeController {
     @Autowired
     private LikeService likeService;
 
-    @PostMapping("/{tweetid}/likes")
+    @PostMapping("/{tweetId}/likes")
     public ResponseEntity<LikeDto> likeTweet(@PathVariable Long tweetId,
                                              @RequestHeader("Authorization") String jwt)
                                              throws UserException, TweetException {
@@ -34,7 +34,7 @@ public class LikeController {
         return new ResponseEntity<>(likeDto, HttpStatus.CREATED);
     }
 
-    @PostMapping("/tweet/{tweetid}")
+    @PostMapping("/tweet/{tweetId}")
     public ResponseEntity<List<LikeDto>> getAllLikes(@PathVariable Long tweetId,
                                                      @RequestHeader("Authorization") String jwt)
                                                 throws UserException, TweetException {

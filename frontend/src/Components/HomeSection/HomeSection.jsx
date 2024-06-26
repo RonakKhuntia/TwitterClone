@@ -13,7 +13,6 @@ const validationSchema = Yup.object().shape({
     content:Yup.string().required("Tweet text is required")
 })
 
-
 const HomeSection = () => {
 
     const [uploadingImage, setUploadingImage] = useState(false);
@@ -27,7 +26,7 @@ const HomeSection = () => {
 
     useEffect(()=>{
         dispatch(getAllTweets())
-    },[])
+    },[tweet.like, tweet.retweet])
     
 
     const formik = useFormik({
