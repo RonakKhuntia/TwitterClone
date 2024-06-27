@@ -39,6 +39,7 @@ export default function ReplyModal({handleClose, open, item}) {
 
     const handleSubmit = (values) => {  
         dispatch(createTweetReply(values))
+        handleClose()
         console.log("values", values)
     }
 
@@ -47,7 +48,7 @@ export default function ReplyModal({handleClose, open, item}) {
             content: "",
             image: "",
             video: "",
-            tweetId: item.id
+            tweetId: item?.id
         },
         validationSchema,
         onSubmit: handleSubmit,

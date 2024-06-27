@@ -34,12 +34,12 @@ const TweetCard = ({item}) => {
     }
 
     const handleCreateRetweet = () => {
-        dispatch(createRetweet(item.id))
+        dispatch(createRetweet(item?.id))
         console.log("handle create retweet")
     }
 
     const handleLikeTweet = () => {
-        dispatch(likeTweet(item.id))
+        dispatch(likeTweet(item?.id))
         console.log("handle like retweet")
     }
 
@@ -51,7 +51,7 @@ const TweetCard = ({item}) => {
         </div> */}
             <div className='flex space-x-5'>
                 <Avatar
-                    onClick={() => navigate(`/profile/${6}`)}
+                    onClick={() => navigate(`/profile/${item?.user.id}`)}
                     className='cursor-pointer'
                     alt='username'
                     src={'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png'} />
@@ -59,8 +59,8 @@ const TweetCard = ({item}) => {
                 <div className='w-full'>
                     <div className='flex justify-between items-center'>
                         <div className='flex cursor-pointer items-center space-x-2'>
-                            <span className='font-semibold'>{item.user.fullName}</span>
-                            <span className='text-gray-600'>{item.user.fullName.split(" ").join("_").toLowerCase()} </span>
+                            <span className='font-semibold'>{item?.user?.fullName}</span>
+                            <span className='text-gray-600'>{item?.user?.fullName.split(" ").join("_").toLowerCase()} </span>
                             <img className='ml-2 w-5 h-5' src="https://abs.twimg.com/responsive-web/client-web/verification-card-v2@3x.8ebee01a.png" alt="" />
                         </div>
                         <div>
@@ -89,24 +89,24 @@ const TweetCard = ({item}) => {
                     </div>
 
                     <div className='mt-2'>
-                        <div onClick={() => navigate(`/tweet/${3}`)} className='cursor-pointer' >
-                            <p className='mb-2 p-0'>{item.content}</p>
-                            <img className='w-[28rem] border-gray-400 p-5 rounded-md' src={item.image} alt="" />
+                        <div onClick={() => navigate(`/tweet/${item?.id}`)} className='cursor-pointer' >
+                            <p className='mb-2 p-0'>{item?.content}</p>
+                            <img className='w-[28rem] border-gray-400 p-5 rounded-md' src={item?.image} alt="" />
                         </div>
 
                         <div className='py-5 flex flex-wrap justify-between items-center'>
                             <div className='space-x-3 flex items-center text-gray'>
                                 <ChatBubbleOutlineIcon className='cursor-pointer' onClick={handleOpenReplyModal} />
                             </div>
-                            <p>{item.totalReplies}</p>
+                            <p>{item?.totalReplies}</p>
 
-                            <div className={`${item.retweet ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
+                            <div className={`${item?.retweet ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
                                 <RepeatIcon onClick={handleCreateRetweet} className='cursor-pointer' />
-                                <p>{item.totalRetweets}</p>
+                                <p>{item?.totalRetweets}</p>
                             </div>
-                            <div className={`${item.liked ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
-                                {!item.liked ? <FavoriteIcon onClick={handleLikeTweet} className='cursor-pointer' /> : <FavoriteOutlined onClick={handleLikeTweet} className='cursor-pointer' />}
-                                <p>{item.totalLikes}</p>
+                            <div className={`${item?.liked ? "text-pink-600" : "text-gray-600"} space-x-3 flex items-center`}>
+                                {item?.liked ? <FavoriteIcon onClick={handleLikeTweet} className='cursor-pointer' /> : <FavoriteOutlined onClick={handleLikeTweet} className='cursor-pointer' />}
+                                <p>{item?.totalLikes}</p>
                             </div>
 
 
