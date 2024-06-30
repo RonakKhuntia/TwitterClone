@@ -7,7 +7,8 @@ import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import TweetCard from './TweetCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTweets } from '../../Store/Tweet/Action';
+import { createTweet, getAllTweets } from '../../Store/Tweet/Action';
+import { uploadToCloudinary } from '../../Utils/uploadToCloudinary';
 
 const validationSchema = Yup.object().shape({
     content:Yup.string().required("Tweet text is required")
@@ -20,8 +21,11 @@ const HomeSection = () => {
     const dispatch = useDispatch();
     const {tweet} = useSelector(store => store)
 
-    const handleSubmit = (values) => {
+    const handleSubmit = (values,actions) => {
+        dispatch(createTweet(values))
+        actions.resetForm()
         console.log("values", values)
+        setSelectedImage("")
     }
 
     useEffect(()=>{
@@ -33,15 +37,15 @@ const HomeSection = () => {
         initialValues:{
             content:"",
             image:"",
-            tweetId:4
+            isTweet: true
         },
         onSubmit:handleSubmit,
         validationSchema,
     })
 
-    const handleSelectImage = (event) => {
+    const handleSelectImage = async(event) => {
         setUploadingImage(true);
-        const imgUrl = event.target.files[0]
+        const imgUrl = await uploadToCloudinary(event.target.files[0])
         formik.setFieldValue("image",imgUrl);
         setSelectedImage(imgUrl);
         setUploadingImage(false);
@@ -84,6 +88,9 @@ const HomeSection = () => {
                         </div>
                     </div>
                 </form>
+                <div>
+                    {selectedImage && <img src={selectedImage} alt="" />}
+                </div>
             </div>
         </div>
       </section>
