@@ -89,7 +89,7 @@ export default function ReplyModal({handleClose, open, item}) {
 
                             <div className='mt-2'>
                                 <div onClick={() => navigate(`/tweet/${3}`)} className='cursor-pointer' >
-                                    <p className='mb-2 p-0'>{item.content}</p>
+                                    <p className='mb-2 p-0'>Nice Tweet</p>
 
                                 </div>
 

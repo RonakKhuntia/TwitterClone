@@ -5,6 +5,9 @@ import Modal from '@mui/material/Modal';
 import { useFormik } from 'formik';
 import { Avatar, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserProfile } from '../../Store/Auth/Action';
+import { uploadToCloudinary } from '../../Utils/uploadToCloudinary';
 
 
 const style = {
@@ -25,15 +28,20 @@ const style = {
 export default function ProfileModal({open, handleClose}) {
   //const [open, setOpen] = React.useState(false);
   const [uploading, setUploading] = React.useState(false);
-
+  const dispatch = useDispatch();
+  const [selectedImage, setSelectedImage] = React.useState("");
+  const {auth} = useSelector(store=>store)
   const handleSubmit = (values) => {
+    dispatch(updateUserProfile(values))
     console.log("handle submit", values);
+    setSelectedImage("");
   }
-  const handleImageChange = (event) => {
+  const handleImageChange = async(event) => {
     setUploading(true);
     const { name } = event.target
-    const file = event.target.files[0];
+    const file = await uploadToCloudinary(event.target.files[0])
     formik.setFieldValue(name, file);
+    setSelectedImage(file);
     setUploading(false);
   }
 
@@ -91,7 +99,7 @@ export default function ProfileModal({open, handleClose}) {
                   <div className='relative'>
                     <Avatar
                       sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
-                      src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png" />
+                      src={selectedImage || auth.user?.image} />
                     <input type="file"
                       className='absolute top-0 left-0 w-[10rem] h-full opacity-0 cursor-pointer'
                       onChange={handleImageChange}

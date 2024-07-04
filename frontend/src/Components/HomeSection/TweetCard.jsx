@@ -60,7 +60,7 @@ const TweetCard = ({item}) => {
                     <div className='flex justify-between items-center'>
                         <div className='flex cursor-pointer items-center space-x-2'>
                             <span className='font-semibold'>{item?.user?.fullName}</span>
-                            <span className='text-gray-600'>{item?.user?.fullName.split(" ").join("_").toLowerCase()} </span>
+                            <span className='text-gray-600'>{'@'+item?.user?.fullName.split(" ").join("_").toLowerCase()} </span>
                             <img className='ml-2 w-5 h-5' src="https://abs.twimg.com/responsive-web/client-web/verification-card-v2@3x.8ebee01a.png" alt="" />
                         </div>
                         <div>
